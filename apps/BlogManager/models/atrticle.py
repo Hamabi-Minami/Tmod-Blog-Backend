@@ -6,6 +6,7 @@ from apps.BlogManager.models.features import FeatureTypesModel
 class ArticleModel(models.Model):
     topic = models.CharField(max_length=100)
     rates = models.IntegerField(default=10)
+    introduction = models.TextField(blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -13,7 +14,7 @@ class ArticleModel(models.Model):
     author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.topic, self.author
+        return self.topic
 
     class Meta:
         verbose_name = 'articles'

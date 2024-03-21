@@ -12,6 +12,7 @@ class BlogFilter(FilterSet):
 
     topic = django_filters.CharFilter(field_name='topic', lookup_expr='icontains')
     rates = django_filters.CharFilter(field_name='rates', lookup_expr='icontains')
+    introduction = django_filters.CharFilter(field_name='introduction', lookup_expr='icontains')
     author = django_filters.CharFilter(field_name='author', lookup_expr='exact')
     created = django_filters.DateFilter(field_name='created', lookup_expr='icontains')
 
@@ -20,6 +21,7 @@ class BlogFilter(FilterSet):
         fields = {
             'topic': ['icontains'],
             'rates': ['icontains'],
+            'introduction': ['icontains'],
             'author': ['exact'],
             'created': ['icontains']
         }
@@ -27,6 +29,7 @@ class BlogFilter(FilterSet):
 
 class BlogSerializer(serializers.ModelSerializer):
     pk = serializers.PrimaryKeyRelatedField(read_only=True)
+    author = serializers.PrimaryKeyRelatedField(queryset=UserModel.objects.all(), write_only=True)
     author_name = serializers.SerializerMethodField()
 
     def get_author_name(self, obj):
@@ -38,8 +41,10 @@ class BlogSerializer(serializers.ModelSerializer):
             'pk',
             'topic',
             'rates',
+            'introduction',
             'created',
             'author_name',
+            'author',
         ]
 
 
@@ -50,6 +55,7 @@ class BlogListCreateAPIView(generics.ListCreateAPIView):
     filter_fields = [
         'topic',
         'rates',
+        'introduction',
         'created',
         'author'
     ]
