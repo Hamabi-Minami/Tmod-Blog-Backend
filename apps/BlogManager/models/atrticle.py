@@ -25,6 +25,7 @@ class FeaturesModel(models.Model):
     feature_type = models.ForeignKey(FeatureTypesModel, on_delete=models.CASCADE, null=True)
     content = models.TextField()
     article = models.ForeignKey(ArticleModel, on_delete=models.CASCADE)
+    index = models.IntegerField(default=0)
 
     def __str__(self):
         return self.feature_type.name
