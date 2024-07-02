@@ -85,7 +85,8 @@ class FeaturesSerializer(serializers.ModelSerializer):
         fields = [
             'pk',
             'feature_type_name',
-            'content'
+            'content',
+            'index'
         ]
 
 
@@ -105,3 +106,8 @@ class FeatureRetrieveUpdateAPIView(generics.ListAPIView):
         queryset = FeaturesModel.objects.filter(article_id=article_id)
 
         return queryset
+
+"""
+pagination
+comment
+"""
